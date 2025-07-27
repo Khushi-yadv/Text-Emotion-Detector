@@ -4,10 +4,10 @@ import pandas as pd
 import gradio as gr
 import altair as alt
 
-# Load the trained model
+
 pipe_lr = joblib.load(open("model/text_emotion (1).pkl", "rb"))
 
-# Emoji dictionary
+
 emotions_emoji_dict = {
     "anger": "😠", "disgust": "🤮", "fear": "😨😱", "happy": "🤗",
     "joy": "😂", "neutral": "😐", "sad": "😔", "sadness": "😔",
@@ -15,12 +15,12 @@ emotions_emoji_dict = {
 }
 
 
-# Emotion prediction function
+
 def predict_emotion(text):
     prediction = pipe_lr.predict([text])[0]
     probability = pipe_lr.predict_proba([text])[0]
 
-    # Prepare chart data
+  
     proba_df = pd.DataFrame({
         'emotions': pipe_lr.classes_,
         'probability': probability
@@ -39,8 +39,6 @@ def predict_emotion(text):
         chart
     )
 
-
-# Gradio Interface
 with gr.Blocks() as demo:
     gr.Markdown("## 🧠 Text Emotion Detection")
 
